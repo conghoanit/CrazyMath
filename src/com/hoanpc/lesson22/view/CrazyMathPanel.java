@@ -10,9 +10,7 @@ import java.awt.event.ActionListener;
 
 public class CrazyMathPanel extends BasePanel implements ActionListener {
     private static final String SELECT_POSITIVE = "SELECT_POSITIVE";
-    private static final String UN_SELECT_POSITIVE = "UN_SELECT_POSITIVE";
     private static final String SELECT_NEGATIVE = "SELECT_NEGATIVE";
-    private static final String UN_SELECT_NEGATIVE = "UN_SELECT_NEGATIVE";
     private static final String SELECT_START = "SELECT_START";
 
     private static final int PADDING_START = 100;
@@ -192,14 +190,18 @@ public class CrazyMathPanel extends BasePanel implements ActionListener {
 
     private void startGame() {
         updateScoreValue();
+
+        btnTrue.setEnabled(true);
+        btnFalse.setEnabled(true);
         btnTrue.setActionCommand(SELECT_POSITIVE);
         btnFalse.setActionCommand(SELECT_NEGATIVE);
+
         prepareQuestionUI();
     }
 
     private void stopGame() {
-        btnTrue.setActionCommand(UN_SELECT_POSITIVE);
-        btnFalse.setActionCommand(UN_SELECT_NEGATIVE);
+        btnTrue.setEnabled(false);
+        btnFalse.setEnabled(false);
         tfNumberOne.setText(null);
         tfNumberTwo.setText(null);
         tfAnswer.setText(null);
