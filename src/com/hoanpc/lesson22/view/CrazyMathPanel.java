@@ -191,7 +191,7 @@ public class CrazyMathPanel extends BasePanel implements ActionListener {
     }
 
     private void startGame() {
-        updateScoreValue(score);
+        updateScoreValue();
         btnTrue.setActionCommand(SELECT_POSITIVE);
         btnFalse.setActionCommand(SELECT_NEGATIVE);
         prepareQuestionUI();
@@ -205,12 +205,12 @@ public class CrazyMathPanel extends BasePanel implements ActionListener {
         tfAnswer.setText(null);
         writeHighScore();
         score = 0;
-        updateScoreValue(score);
+        updateScoreValue();
     }
 
     private void doOnTrueAnswer() {
         score += 1;
-        updateScoreValue(score);
+        updateScoreValue();
         prepareQuestionUI();
     }
 
@@ -221,7 +221,7 @@ public class CrazyMathPanel extends BasePanel implements ActionListener {
         tfAnswer.setText(String.valueOf(crazyMath.getAnswer()));
     }
 
-    private void updateScoreValue(int score) {
+    private void updateScoreValue() {
         lbScoreNumber.setText(String.valueOf(score));
     }
 
