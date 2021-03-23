@@ -130,7 +130,6 @@ public class CrazyMathPanel extends BasePanel implements ActionListener {
         lbHighScoreNumber.setBounds(lbHighScore.getX() + lbHighScore.getWidth() + 10, lbHighScore.getY(), 50, lbHighScore.getHeight());
         lbHighScoreNumber.setFont(myFont);
         add(lbHighScoreNumber);
-        updateHighScoreNumber();
     }
 
     private void updateHighScoreNumber() {
@@ -189,6 +188,7 @@ public class CrazyMathPanel extends BasePanel implements ActionListener {
     }
 
     private void startGame() {
+        updateHighScoreNumber();
         updateScoreValue();
 
         btnTrue.setEnabled(true);
@@ -205,6 +205,7 @@ public class CrazyMathPanel extends BasePanel implements ActionListener {
         tfNumberOne.setText(null);
         tfNumberTwo.setText(null);
         tfAnswer.setText(null);
+
         writeHighScore();
         score = 0;
         updateScoreValue();
