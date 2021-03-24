@@ -3,9 +3,11 @@ package com.hoanpc.lesson22.model;
 import java.io.*;
 
 public class ScoreManager {
+    private int score;
     private int highScore;
 
     public ScoreManager() {
+        score = 0;
         highScore = readData();
     }
 
@@ -51,7 +53,27 @@ public class ScoreManager {
         }
     }
 
+    public void increaseScore() {
+        score += 1;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
     public int getHighScore() {
         return highScore = readData();
+    }
+
+    public boolean isHighScore() {
+        return score > highScore;
+    }
+
+    public void setHighScore(int highScore) {
+        this.highScore = highScore;
     }
 }

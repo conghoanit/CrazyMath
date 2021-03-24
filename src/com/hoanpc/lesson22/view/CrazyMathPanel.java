@@ -33,7 +33,6 @@ public class CrazyMathPanel extends BasePanel implements ActionListener {
     private JTextField tfAnswer;
 
     private CrazyMath crazyMath;
-    private int score;
     private ScoreManager scoreManager;
 
     private Font myFont;
@@ -65,12 +64,14 @@ public class CrazyMathPanel extends BasePanel implements ActionListener {
     private void initBtnFalse() {
         btnFalse = new JButton("FALSE");
         btnFalse.setBounds(tfNumberTwo.getX(), btnTrue.getY(), 100, 50);
+        btnFalse.setActionCommand(SELECT_FALSE);
         add(btnFalse);
     }
 
     private void initBtnTrue() {
         btnTrue = new JButton("TRUE");
         btnTrue.setBounds(PADDING_START, tfNumberOne.getY() + tfNumberOne.getHeight() + 50, 100, 50);
+        btnTrue.setActionCommand(SELECT_TRUE);
         add(btnTrue);
     }
 
@@ -197,8 +198,6 @@ public class CrazyMathPanel extends BasePanel implements ActionListener {
 
         btnTrue.setEnabled(true);
         btnFalse.setEnabled(true);
-        btnTrue.setActionCommand(SELECT_TRUE);
-        btnFalse.setActionCommand(SELECT_FALSE);
 
         prepareQuestionUI();
     }
@@ -210,13 +209,12 @@ public class CrazyMathPanel extends BasePanel implements ActionListener {
         tfNumberTwo.setText(null);
         tfAnswer.setText(null);
 
-        writeHighScore();
-        score = 0;
-        updateScoreValue();
+        checkHighScore();
+        scoreManager.setScore(0);
     }
 
     private void doOnTrueAnswer() {
-        score += 1;
+        scoreManager.increaseScore();
         updateScoreValue();
         prepareQuestionUI();
     }
@@ -229,18 +227,19 @@ public class CrazyMathPanel extends BasePanel implements ActionListener {
     }
 
     private void updateScoreValue() {
-        lbScoreNumber.setText(String.valueOf(score));
+        lbScoreNumber.setText(String.valueOf(scoreManager.getScore()));
     }
 
-    private void writeHighScore() {
-        if (scoreManager.getHighScore() < score) {
+    private void checkHighScore() {
+        int score = scoreManager.getScore();
+        if (scoreManager.isHighScore()) {
             String name = JOptionPane.showInputDialog(this, "Enter Your Name", "High Score", JOptionPane.INFORMATION_MESSAGE);
             if (name != null) {
                 scoreManager.writeData(name, score);
                 updateHighScoreNumber();
+            } else {
+                JOptionPane.showMessageDialog(this, "Your Score: " + score, "Game Over", JOptionPane.ERROR_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Your Score: " + score, "Game Over", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
