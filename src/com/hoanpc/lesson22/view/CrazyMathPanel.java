@@ -9,8 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CrazyMathPanel extends BasePanel implements ActionListener {
-    private static final String SELECT_POSITIVE = "SELECT_POSITIVE";
-    private static final String SELECT_NEGATIVE = "SELECT_NEGATIVE";
+    private static final String SELECT_TRUE = "SELECT_TRUE";
+    private static final String SELECT_FALSE = "SELECT_FALSE";
     private static final String SELECT_START = "SELECT_START";
 
     private static final int PADDING_START = 100;
@@ -44,9 +44,7 @@ public class CrazyMathPanel extends BasePanel implements ActionListener {
         crazyMath = new CrazyMath();
         scoreManager = new ScoreManager();
 
-        myFont = new Font("Arial", Font.BOLD, 32);
-        myFontHeight = getFontMetrics(myFont).getHeight();
-
+        initMyFont();
         initBtnStartGame();
         initLbScore();
         initLbHighScore();
@@ -55,17 +53,22 @@ public class CrazyMathPanel extends BasePanel implements ActionListener {
         initTfNumberTwo();
         initLbEqual();
         initTfAnswer();
-        initBtnPositive();
-        initBtnNegative();
+        initBtnTrue();
+        initBtnFalse();
     }
 
-    private void initBtnNegative() {
+    private void initMyFont() {
+        myFont = new Font("Arial", Font.BOLD, 32);
+        myFontHeight = getFontMetrics(myFont).getHeight();
+    }
+
+    private void initBtnFalse() {
         btnFalse = new JButton("FALSE");
         btnFalse.setBounds(tfNumberTwo.getX(), btnTrue.getY(), 100, 50);
         add(btnFalse);
     }
 
-    private void initBtnPositive() {
+    private void initBtnTrue() {
         btnTrue = new JButton("TRUE");
         btnTrue.setBounds(PADDING_START, tfNumberOne.getY() + tfNumberOne.getHeight() + 50, 100, 50);
         add(btnTrue);
@@ -111,7 +114,7 @@ public class CrazyMathPanel extends BasePanel implements ActionListener {
 
     private void initLbScore() {
         lbScore = new JLabel("Your Score:");
-        lbScore.setBounds(500, 20, 200, myFontHeight);
+        lbScore.setBounds(500, btnStartGame.getY(), 200, myFontHeight);
         lbScore.setFont(myFont);
         add(lbScore);
 
@@ -120,9 +123,10 @@ public class CrazyMathPanel extends BasePanel implements ActionListener {
         lbScoreNumber.setFont(myFont);
         add(lbScoreNumber);
     }
+
     private void initLbHighScore() {
         lbHighScore = new JLabel("High Score:");
-        lbHighScore.setBounds(lbScore.getX(), lbScore.getY()+lbScore.getHeight() +20, 200, myFontHeight);
+        lbHighScore.setBounds(lbScore.getX(), lbScore.getY() + lbScore.getHeight() + 20, 200, myFontHeight);
         lbHighScore.setFont(myFont);
         add(lbHighScore);
 
@@ -158,18 +162,18 @@ public class CrazyMathPanel extends BasePanel implements ActionListener {
                 startGame();
                 break;
             }
-            case SELECT_POSITIVE: {
-                doOnPositiveButton();
+            case SELECT_TRUE: {
+                doOnTrueButton();
                 break;
             }
-            case SELECT_NEGATIVE: {
-                doOnNegativeButton();
+            case SELECT_FALSE: {
+                doOnFalseButton();
                 break;
             }
         }
     }
 
-    private void doOnNegativeButton() {
+    private void doOnFalseButton() {
         boolean result = crazyMath.checkQuestionNegative();
         if (result) {
             doOnTrueAnswer();
@@ -178,7 +182,7 @@ public class CrazyMathPanel extends BasePanel implements ActionListener {
         }
     }
 
-    private void doOnPositiveButton() {
+    private void doOnTrueButton() {
         boolean result = crazyMath.checkQuestionPositive();
         if (result) {
             doOnTrueAnswer();
@@ -193,8 +197,8 @@ public class CrazyMathPanel extends BasePanel implements ActionListener {
 
         btnTrue.setEnabled(true);
         btnFalse.setEnabled(true);
-        btnTrue.setActionCommand(SELECT_POSITIVE);
-        btnFalse.setActionCommand(SELECT_NEGATIVE);
+        btnTrue.setActionCommand(SELECT_TRUE);
+        btnFalse.setActionCommand(SELECT_FALSE);
 
         prepareQuestionUI();
     }
@@ -233,7 +237,6 @@ public class CrazyMathPanel extends BasePanel implements ActionListener {
             String name = JOptionPane.showInputDialog(this, "Enter Your Name", "High Score", JOptionPane.INFORMATION_MESSAGE);
             if (name != null) {
                 scoreManager.writeData(name, score);
-                scoreManager.readData();
                 updateHighScoreNumber();
             }
         } else {

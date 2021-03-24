@@ -6,15 +6,15 @@ public class ScoreManager {
     private int highScore;
 
     public ScoreManager() {
-        readData();
+        highScore = readData();
     }
 
-    public void readData() {
+    private int readData() {
         try {
             String path = "D:\\data.txt";
             File file = new File(path);
-            if (!file.exists()){
-                return;
+            if (!file.exists()) {
+                return 0;
             }
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
@@ -30,6 +30,7 @@ public class ScoreManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return highScore;
     }
 
     public void writeData(String name, int highScore) {
@@ -51,6 +52,6 @@ public class ScoreManager {
     }
 
     public int getHighScore() {
-        return highScore;
+        return highScore = readData();
     }
 }
