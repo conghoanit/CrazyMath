@@ -72,8 +72,4 @@ public class ScoreManager {
     public boolean isHighScore() {
         return score > highScore;
     }
-
-    public void setHighScore(int highScore) {
-        this.highScore = highScore;
-    }
 }
